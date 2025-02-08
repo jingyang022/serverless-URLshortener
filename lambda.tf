@@ -26,7 +26,11 @@ resource "aws_lambda_function" "lambda-post" {
 }
 
 # aws_cloudwatch_log_group to get the logs of the Lambda execution.
-resource "aws_cloudwatch_log_group" "lambda_log_group" {
+resource "aws_cloudwatch_log_group" "lambda-post-logs" {
   name              = "/aws/lambda/yap-lambda-post"
   retention_in_days = 7
 }
+
+#############################################################
+# Lambda Function (for GET)
+#############################################################
