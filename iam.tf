@@ -1,6 +1,6 @@
 # Create IAM policy to attach to Lambda execution role to allow access to DynamoDB
-resource "aws_iam_policy" "url_dynamoDB_access" {
-  name = "url-ddb-access"
+resource "aws_iam_policy" "yap_lambda_dynamoDB_access" {
+  name = "yap-lambda-ddb-access"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -19,14 +19,14 @@ resource "aws_iam_policy" "url_dynamoDB_access" {
   })
 }
 
-resource "aws_iam_policy_attachment" "url_dynamoDB_attach" {
-  name       = "url_dynamoDB_attach"
+resource "aws_iam_policy_attachment" "yap_lambda_dynamoDB_attach" {
+  name       = "yap-lambda-dynamoDB-attach"
   roles      = [aws_iam_role.lambda_exec_role.name]
-  policy_arn = aws_iam_policy.url_dynamoDB_access.arn
+  policy_arn = aws_iam_policy.yap_lambda_dynamoDB_access.arn
 }
 
 resource "aws_iam_role" "lambda_exec_role" {
-  name = "url-api-executionrole"
+  name = "yap-lambda-exe-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
