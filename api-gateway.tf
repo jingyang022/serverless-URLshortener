@@ -102,3 +102,29 @@ resource "aws_api_gateway_integration_response" "get_integration_response" {
     aws_api_gateway_integration.get_integration
   ]
 }
+
+#############################################################
+# API Gateway Deployment
+#############################################################
+
+resource "aws_api_gateway_deployment" "api-deployment" {
+  depends_on = [aws_api_gateway_integration.post_integration,
+                aws_api_gateway_integration.get_integration,
+                ]
+
+  rest_api_id = aws_api_gateway_rest_api.yap_api.id
+  
+   triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.yap_api.body))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_api_gateway_stage" "example" {
+  deployment_id = aws_api_gateway_deployment.api-deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.yap_api.id
+  stage_name    = "dev"
+}
