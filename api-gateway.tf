@@ -123,7 +123,7 @@ resource "aws_api_gateway_deployment" "api-deployment" {
   }
 }
 
-resource "aws_api_gateway_stage" "example" {
+resource "aws_api_gateway_stage" "api_stage" {
   deployment_id = aws_api_gateway_deployment.api-deployment.id
   rest_api_id   = aws_api_gateway_rest_api.yap_api.id
   stage_name    = "dev"

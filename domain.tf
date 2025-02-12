@@ -22,6 +22,6 @@ resource "aws_api_gateway_domain_name" "shortener" {
 
 resource "aws_api_gateway_base_path_mapping" "shortener_domain_mapping" {
     api_id = aws_api_gateway_rest_api.yap_api.id
-    stage_name  = aws_api_gateway_stage.example.stage_name
+    stage_name  = aws_api_gateway_stage.api_stage.stage_name
     domain_name = aws_api_gateway_domain_name.shortener.domain_name_id
 }

@@ -11,7 +11,7 @@ data "archive_file" "lambda-post-file" {
 }
 
 resource "aws_lambda_function" "lambda-post-func" {
-  function_name = "yap-lambda-post-func"
+  function_name = "lambda-post-func"
   role          = aws_iam_role.lambda_exec_role.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.12"
@@ -23,6 +23,16 @@ resource "aws_lambda_function" "lambda-post-func" {
       DDB_TABLE = aws_dynamodb_table.url-dynamodb-table.name
     }
   }
+}
+
+# Gives API gateway the permission to access the Lambda function POST.
+resource "aws_lambda_permission" "post_lambda_permission" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = "lambda-post-func"
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.yap_api.execution_arn}/*"
 }
 
 # aws_cloudwatch_log_group to get the logs of the Lambda execution.
@@ -44,7 +54,7 @@ data "archive_file" "lambda-get-file" {
 }
 
 resource "aws_lambda_function" "lambda-get-func" {
-  function_name = "yap-lambda-get-func"
+  function_name = "lambda-get-func"
   role          = aws_iam_role.lambda_exec_role.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.12"
@@ -56,6 +66,16 @@ resource "aws_lambda_function" "lambda-get-func" {
       DDB_TABLE = aws_dynamodb_table.url-dynamodb-table.name
     }
   }
+}
+
+# Gives API gateway the permission to access the Lambda function GET.
+resource "aws_lambda_permission" "get_lambda_permission" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = "lambda-get-func"
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.yap_api.execution_arn}/*"
 }
 
 # aws_cloudwatch_log_group to get the logs of the Lambda execution.
