@@ -2,18 +2,18 @@
 
 <p>Required Components:
 
-1. DynamoDB to store the short ids (Done!)
+1. DynamoDB to store the short ids
 
-2. Created Lambda execution role to access DynamoDB (Done!)
+2. Created Lambda execution role to access DynamoDB
 
-3. 1x Lambda (for POST /newurl)
+3. 1x Lambda (for POST /newurl) (Got error: Could not resolve application)
 
 4. 1x Lambda (for GET /{shortid})
 
 5. API Gateway with a Custom Domain (Route53) configured with public ACM Cert
 
-6. AWS WAF to ensure that the API Gateway is only accessible from your IP
+6. AWS WAF to ensure that the API Gateway is only accessible from your IP  (Not done yet)
 
-7. X-ray for tracing
+7. X-ray for tracing (Not done yet)
 
 8. Cloudwatch Alarms + SNS for alerts (Don't have to subscribe as this is for learning purposes only)

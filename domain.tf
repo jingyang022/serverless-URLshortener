@@ -1,6 +1,6 @@
 # Setup custom domain name for API Gateway endpoint
 resource "aws_route53_record" "www" {
-    name    = aws_api_gateway_domain_name.shortener.domain_name_id
+    name    = aws_api_gateway_domain_name.shortener.domain_name
     type    = "A"
     zone_id = data.aws_route53_zone.sctp_zone.id
 
